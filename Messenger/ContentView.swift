@@ -1,21 +1,19 @@
-//
-//  ContentView.swift
-//  Messenger
-//
-//  Created by Olivier Binette on 2025-12-21.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var webViewModel = WebViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 0) {
+            // Navigation Bar
+            if webViewModel.showNavigationBar {
+                NavigationBar(viewModel: webViewModel)
+            }
+
+            // WebView
+            WebView(viewModel: webViewModel)
         }
-        .padding()
+        .frame(minWidth: 800, minHeight: 600)
     }
 }
 

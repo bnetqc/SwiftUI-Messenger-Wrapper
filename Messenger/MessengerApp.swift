@@ -1,10 +1,3 @@
-//
-//  MessengerApp.swift
-//  Messenger
-//
-//  Created by Olivier Binette on 2025-12-21.
-//
-
 import SwiftUI
 
 @main
@@ -13,5 +6,9 @@ struct MessengerApp: App {
         WindowGroup {
             ContentView()
         }
+        .commands {
+            CommandGroup(replacing: .newItem) { }
+        }
+        .windowStyle(.hiddenTitleBar)
     }
 }
