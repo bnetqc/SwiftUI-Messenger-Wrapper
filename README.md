@@ -1,7 +1,8 @@
 # Messenger for macOS
 
-A native macOS wrapper for Facebook Messenger built with SwiftUI and WebKit.
-I used ressources from https://github.com/JensPauwels/messenger but built it in SwiftUI and WebKit instead of java for better performances.
+A native macOS wrapper for Facebook Messenger built with SwiftUI and WebKit to replaced the discontinued Facebook Messenger App.
+
+It's kind of a fork of this https://github.com/JensPauwels/messenger but writen in SwiftUI and WebKit instead of java for better performances.
 
 ![App Icon](Messenger/Assets.xcassets/AppIcon.appiconset/MessengerIcon-512.png)
 
@@ -23,7 +24,7 @@ I used ressources from https://github.com/JensPauwels/messenger but built it in 
 
 ## Installation
 
-### Option 1: Download Release (Coming Soon)
+### Option 1: Download Release
 Download the latest `.app` from the [Releases](../../releases) page.
 
 ### Option 2: Build from Source
