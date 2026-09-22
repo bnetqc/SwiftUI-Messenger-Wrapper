@@ -1,8 +1,8 @@
 # Messenger for macOS
 
-A native macOS wrapper for Facebook Messenger built with SwiftUI and WebKit to replaced the discontinued Facebook Messenger App.
+A native macOS wrapper for Facebook Messenger built with SwiftUI and WebKit to replace the discontinued Facebook Messenger app.
 
-It's kind of a fork of this https://github.com/JensPauwels/messenger but writen in SwiftUI and WebKit instead of java for better performances.
+It's kind of a fork of https://github.com/JensPauwels/messenger but written in SwiftUI and WebKit instead of Go/Wails for better performance.
 
 ![App Icon](Messenger/Assets.xcassets/AppIcon.appiconset/MessengerIcon-512.png)
 
@@ -11,16 +11,19 @@ It's kind of a fork of this https://github.com/JensPauwels/messenger but writen 
 - Native macOS application experience
 - Full access to messenger.com functionality
 - Lightweight WebKit wrapper
+- Links open in your default browser; Messenger pages stay in the app
+- Attach files and save attachments (native open/save panels)
+- Voice and video calls (camera and microphone access)
+- Native macOS notifications for new messages
 - Back/forward navigation support
 - Auto-hide app banners and promotional content
 - Custom Messenger app icon
-- Notification handling infrastructure
-- App Sandbox security
+- App Sandbox and Hardened Runtime; releases are signed and notarized
 
 ## Requirements
 
-- macOS 11.0 or later
-- Xcode 13.0 or later
+- macOS 11.5 or later
+- Xcode 16 or later (to build from source)
 
 ## Installation
 
@@ -31,8 +34,8 @@ Download the latest `.app` from the [Releases](../../releases) page.
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/messenger-macos.git
-   cd messenger-macos
+   git clone https://github.com/bnetqc/SwiftUI-Messenger-Wrapper.git
+   cd SwiftUI-Messenger-Wrapper
    ```
 
 2. Open `Messenger.xcodeproj` in Xcode
@@ -41,10 +44,25 @@ Download the latest `.app` from the [Releases](../../releases) page.
 
 ## Building for Release
 
-1. In Xcode, select **Product → Archive**
-2. Once archived, click **Distribute App**
-3. Choose **Copy App** for personal use
-4. The built app will be exported to your chosen location
+`build.sh` archives the app, signs it with your Developer ID, notarizes it with Apple, staples the ticket and produces `releases/Messenger-vX.Y.Z-macOS.zip` ready for GitHub Releases.
+
+One-time setup:
+
+1. Install a **Developer ID Application** certificate from your Apple Developer account in the login keychain.
+2. Store notarization credentials (use an [app-specific password](https://appleid.apple.com)):
+   ```bash
+   xcrun notarytool store-credentials "messenger-notary" \
+       --apple-id "you@example.com" --team-id "TEAMID1234" \
+       --password "xxxx-xxxx-xxxx-xxxx"
+   ```
+
+Then, after bumping `MARKETING_VERSION` in the Xcode project:
+
+```bash
+./build.sh
+```
+
+Alternatively use Xcode: **Product → Archive → Distribute App → Direct Distribution**.
 
 ## Project Structure
 
@@ -56,10 +74,11 @@ Messenger/
 │   ├── WebView.swift              # WebKit wrapper
 │   ├── WebViewModel.swift         # View model for web state
 │   ├── NavigationBar.swift        # Navigation controls
-│   ├── Info.plist                 # App configuration
 │   ├── Messenger.entitlements     # App capabilities
 │   └── Assets.xcassets/          # App icon and assets
 ├── Messenger.xcodeproj/
+├── ExportOptions.plist            # Developer ID export settings
+├── build.sh                       # Sign, notarize and package a release
 └── README.md
 ```
 

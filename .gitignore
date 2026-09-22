@@ -37,3 +37,6 @@ Carthage/Build/
 
 # Temporary folders
 Messenger 2025-*/
+
+# Release artifacts (uploaded to GitHub Releases)
+releases/
